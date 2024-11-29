@@ -22,12 +22,12 @@ jobs:
           cache: maven
 
       # Garantir que o arquivo mvnw tenha permissões de execução
-      - name: Give execute permissions to mvnw
-        run: chmod +x ./mvnw
+  #    - name: Give execute permissions to mvnw
+  #      run: chmod +x ./mvnw
 
       # Compilação do projeto com Maven
-      - name: Compilar com Maven
-        run: ./mvnw -B package --file pom.xml
+  #    - name: Compilar com Maven
+  #      run: ./mvnw -B package --file pom.xml
 
       # ------------ESTÁGIO DEPLOY EC2------------
       - name: Deploy na AWS EC2
@@ -35,9 +35,9 @@ jobs:
           KEY_EC2_AWS: ${{ secrets.API_KEY_AWS }}
         run: |
           # Criando uma chave SSH temporária
-          echo "${API_KEY_AWS}" > private_key && chmod 400 private_key
+          echo "${KEY_EC2_AWS}" > private_key && chmod 400 private_key
           # Conectando-se à instância EC2 e executando comandos
-          ssh -o StrictHostKeyChecking=no -i "private_key" ubuntu@ec2-34-199-223-122.compute-1.amazonaws.com "
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-199-223-122.compute-1.amazonaws.com "
             cd /home/ubuntu/estudando_devops &&
             git pull &&
             mvn clean package -DskipTests &&
