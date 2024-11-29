@@ -22,12 +22,12 @@ jobs:
           cache: maven
 
       # Garantir que o arquivo mvnw tenha permissões de execução
-  #    - name: Give execute permissions to mvnw
-  #      run: chmod +x ./mvnw
+      - name: Give execute permissions to mvnw
+        run: chmod +x ./mvnw
 
       # Compilação do projeto com Maven
-  #    - name: Compilar com Maven
-  #      run: ./mvnw -B package --file pom.xml
+      - name: Compilar com Maven
+        run: ./mvnw -B package --file pom.xml
 
       # ------------ESTÁGIO DEPLOY EC2------------
       - name: Deploy na AWS EC2
